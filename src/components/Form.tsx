@@ -1,7 +1,24 @@
-import { categories } from "../db/categories"
-import { Categories } from "../types"
+import { useState } from "react"
+import { categories } from '../db/categories';
+import { Activity } from "../types";
 export default function Form() {
-  return (
+const [activity,SetActivity] = useState<Activity>({
+    category:1,
+    name:'',
+    calories:0
+})
+ const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    const isNumberFill = ['category','calories'].includes(e.target.id)
+    console.log(isNumberFill)
+    SetActivity({
+        ...activity,
+        [e.target.id]:isNumberFill ? +e.target.value : e.target.value
+    })
+ }
+   
+  
+  
+    return (
     <>
         <form 
         action=""
@@ -9,23 +26,30 @@ export default function Form() {
         >
             <div className="grid grid-cols-1 gap-3">
                 <label htmlFor="category" className="font-bold">Categoria: </label>
-                <select name="" id="category" className="border border-slate-300 p-2 rounded-lg w-full bg-white">
+                <select 
+                name="" 
+                id="category" 
+                value={activity.category} 
+                className="border border-slate-300 p-2 rounded-lg w-full bg-white"
+                onChange={handleChange}
+                >
+
                             {categories.map((categories) => (
                                 <option key={categories.id}  value={categories.id}>
                                     {categories.name}
-                                </option>
-                                
-                                
+                                </option>                                                                
                             ))}
                 </select>
             </div>
             <div className="grid grid-cols-1 gap-3">
-            <label htmlFor="activity" className="font-bold">Actividad: </label>
+            <label htmlFor="name" className="font-bold">Actividad: </label>
             <input 
             type="text" 
-            id="activity"
+            id="name"
             className="border border-slate-300 p-2 rounded-lg"
             placeholder="Ej.Comida,Jugo de naranja,Ensalada,Ejercicio,Pesas,Bicicletas."
+            value={activity.name}
+            onChange={handleChange}
             />
             </div>
             <div className="grid grid-cols-1 gap-3">
@@ -35,11 +59,14 @@ export default function Form() {
             id="calories"
             className="border border-slate-300 p-2 rounded-lg"
             placeholder="Ej.300 o 500."
+            value={activity.calories}
+            onChange={handleChange}
             />
             </div>
-            <input type="submit"
-                   className="bg-gray-800 hover:bg-gray-900 w-full p-2 font-bold uppercase text-white cursor-pointer"
-                   value={'Guardar Comida o Ejercicio'}
+            <input 
+            type="submit"       
+            className="bg-gray-800 hover:bg-gray-900 w-full p-2 font-bold uppercase text-white cursor-pointer"
+            value={'Guardar Comida o Ejercicio'}
             />
         </form>
     </>
