@@ -15,15 +15,22 @@ const [activity,SetActivity] = useState<Activity>({
         [e.target.id]:isNumberFill ? +e.target.value : e.target.value
     })
  }
-   
-  
-  
+
+ const isValid = () => {
+    const {name,calories} = activity
+    return name.trim() !== '' && calories > 0
+ }
+const handleSubmit = (e :  React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    console.log('cargar...')
+
+}
     return (
     <>
         <form 
         action=""
-        className="space-y-5 bg-white shadow p-10 rounded-lg"
-        >
+        className="space-y-5 bg-white shad ow p-10 rounded-lg"
+        onSubmit={handleSubmit}>
             <div className="grid grid-cols-1 gap-3">
                 <label htmlFor="category" className="font-bold">Categoria: </label>
                 <select 
@@ -65,8 +72,9 @@ const [activity,SetActivity] = useState<Activity>({
             </div>
             <input 
             type="submit"       
-            className="bg-gray-800 hover:bg-gray-900 w-full p-2 font-bold uppercase text-white cursor-pointer"
-            value={'Guardar Comida o Ejercicio'}
+            className="bg-gray-800 hover:bg-gray-900 w-full p-2 font-bold uppercase text-white cursor-pointer disabled:opacity-10"
+            value={activity.category === 1 ? 'Guardar Comida' : 'Guardar Ejercicio'}
+            disabled={!isValid()}
             />
         </form>
     </>
