@@ -2,11 +2,11 @@ import { Dispatch, useState, useEffect } from "react"
 import { v4 as uuidv4 } from 'uuid'
 import { categories } from '../db/categories';
 import { Activity } from "../types";
-import { ActivityActions, initialState as reducerInitialState, ActiviState } from '../reducers/activityReducer';
+import { ActivityActions, ActivityState } from '../reducers/activityReducer';
 
 type FormProps = {
     dispatch: Dispatch<ActivityActions>
-    state: ActiviState
+    state: ActivityState
 }
 
 const formInitialState = {
@@ -44,7 +44,7 @@ export default function Form({ dispatch, state }: FormProps) {
 
     useEffect(() => {
         if (state.activeId) {
-            const selectedActivity = state.activities.find(stateActivity => stateActivity.id === state.activeId);
+            const selectedActivity = state.activities.find((stateActivity: Activity) => stateActivity.id === state.activeId);
             if (selectedActivity) {
                 setActivity(selectedActivity);
             }

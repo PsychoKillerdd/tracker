@@ -1,9 +1,6 @@
-import React, { useMemo } from 'react'
+import  { useMemo } from 'react'
+
 import { Activity } from '../types'
-import { Activity } from '../types/index';
-import { categories } from '../db/categories';
-
-
 
 type CalorieTrackerProps = {
     activities: Activity[]
