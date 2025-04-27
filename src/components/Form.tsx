@@ -2,11 +2,17 @@ import { Dispatch, useState, useEffect } from "react"
 import { v4 as uuidv4 } from 'uuid'
 import { categories } from '../db/categories';
 import { Activity } from "../types";
-import { ActivityActions, ActivityState } from '../reducers/activityReducer';
+import { ActivityActions } from '../reducers/activityReducer';
+
+// Definimos la estructura del estado aquí si no está exportada correctamente
+interface State {
+  activities: Activity[];
+  activeId: string | null;
+}
 
 type FormProps = {
     dispatch: Dispatch<ActivityActions>
-    state: ActivityState
+    state: State
 }
 
 const formInitialState = {
